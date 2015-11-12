@@ -22,4 +22,4 @@ Enable comments
 Enable upvotes
 * Setup database query to handle upvotes
 
-![Mock_screens](/images/mock_screens.jpg =100x100)
+![Mock_screens](/images/mock_screens.jpg)
