@@ -6,8 +6,8 @@ pin board.
 ### Steps:
 Get basic website with users and pictures up 
 * Get a website for manga cork
-	* Get a domain 
-	* Set it up with nginx
+	X  Get a domain 
+	X  Set it up with nginx
 	* Create a website using jinja and flask
 * Host picture files
 	* Upload pictures onto nginx image folder
