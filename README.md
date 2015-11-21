@@ -29,4 +29,4 @@ Enable comments
 Enable upvotes
 * Setup database query to handle upvotes
 
-![Mock_screens](/images/mock_screens.jpg)
+![Mock_screens](/mock_screens.jpg)
