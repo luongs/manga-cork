@@ -1,8 +1,8 @@
-from flask import render_template, request, url_for
+from flask import render_template
 
 from mangacork import app
 
 
 @app.route('/')
-def hello_world():
-    return 'Hello world'
+def index():
+    return render_template('index.html')
