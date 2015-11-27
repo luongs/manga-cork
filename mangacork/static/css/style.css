@@ -1,0 +1,11 @@
+.manga {
+	display: inline;
+}
+
+.manga img {
+	width: 75%;
+}
+
+.manga p {
+	width: 50%;
+}
