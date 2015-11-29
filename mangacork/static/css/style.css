@@ -1,13 +1,14 @@
+.top a {
+    text-decoration: none;
+}
+
+
 .manga {
 	display: inline;
 }
 
 .manga img {
 	width: 75%;
-}
-
-.manga h3 {
-	width: 50%;
 }
 
 .left_pane {
