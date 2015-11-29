@@ -6,6 +6,10 @@
 	width: 75%;
 }
 
-.manga p {
+.manga h3 {
+	width: 50%;
+}
+
+.left_pane {
 	width: 50%;
 }
