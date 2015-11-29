@@ -12,7 +12,7 @@ def index():
 
 
 @app.route('/<chapter>/<page>')
-def display():
+def display(chapter, page):
     image_path = '{}/{}.{}'.format(
         chapter, page, FILE_TYPE)
     return render_template('manga.html', image_path=image_path)
