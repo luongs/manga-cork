@@ -1,19 +1,34 @@
 import os
 from os.path import (isfile, walk)
 
-filename = ''
-
 
 def id_chapters():
-    print(os.chdir('../static/images'))
-    for root, dirs, files in os.walk(os.getcwd()):
-        if len(dirs) > 0:
-            filename = str(dirs[0])
+    os.chdir('../static/images')
+
+    for _, dirs, files in os.walk(os.getcwd()):
+
+        dirs = [d for d in dirs if not d[0] == '.']
+        files = [f for f in files if not f[0] == '.']
+
+        res_file_path = ''
+        for directory in dirs:
+            res_file_path = get_filepath(directory)
+
+        # print res_file_path
+        for filename in files:
+            print(res_file_path)
+            write_file(res_file_path, filename)
 
 
-def write_file():
-    f = open(filename, 'w')
-    f.write('hello world')
+def get_filepath(directory):
+    filepath = '{}.txt'.format(directory)
+    return filepath
+
+
+def write_file(filepath, data):
+    print(filepath)
+    f = open(filepath, 'a')
+    f.write(data)
     f.close()
 
 if __name__ == '__main__':
