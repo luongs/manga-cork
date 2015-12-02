@@ -1,5 +1,4 @@
 import os
-from os.path import (isfile, walk)
 
 
 def id_chapters():
@@ -10,14 +9,9 @@ def id_chapters():
         dirs = [d for d in dirs if not d[0] == '.']
         files = [f for f in files if not f[0] == '.']
 
-        res_file_path = ''
         for directory in dirs:
-            res_file_path = get_filepath(directory)
-
-        # print res_file_path
-        for filename in files:
-            print(res_file_path)
-            write_file(res_file_path, filename)
+            file_path = get_filepath(directory)
+            write_file(file_path)
 
 
 def get_filepath(directory):
@@ -25,11 +19,11 @@ def get_filepath(directory):
     return filepath
 
 
-def write_file(filepath, data):
-    print(filepath)
+def write_file(filepath):
+    os.chdir('../chapters')
     f = open(filepath, 'a')
-    f.write(data)
     f.close()
+    os.chdir('../images')
 
 if __name__ == '__main__':
     id_chapters()
