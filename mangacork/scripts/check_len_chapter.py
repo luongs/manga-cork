@@ -1,7 +1,7 @@
 import os
 
 
-def id_chapters():
+def make_chapter_files():
     os.chdir('../static/images')
 
     for _, dirs, files in os.walk(os.getcwd()):
@@ -11,7 +11,19 @@ def id_chapters():
 
         for directory in dirs:
             file_path = get_filepath(directory)
-            write_file(file_path)
+            make_file(file_path)
+
+
+def write_chapter_files():
+    os.chdir('../static/images')
+
+    root, chapters, files = next(os.walk(os.getcwd()))
+    for chapter in chapters:
+        path_list.append(os.path.join(root, chapter))
+    path_list = [p for p in chapters]
+    chapter_list = [name for name in files if not name[0] == '.']
+    print path_list
+    # print chapter_list
 
 
 def get_filepath(directory):
@@ -19,11 +31,10 @@ def get_filepath(directory):
     return filepath
 
 
-def write_file(filepath):
-    os.chdir('../chapters')
+def make_file(filepath):
     f = open(filepath, 'a')
     f.close()
-    os.chdir('../images')
 
 if __name__ == '__main__':
-    id_chapters()
+    # make_chapter_files()
+    write_chapter_files()

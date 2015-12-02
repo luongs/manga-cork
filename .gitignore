@@ -1,3 +1,4 @@
 *.pyc
 mangacork/static/images/dragonball_ch1
-mangacork/static/chapters
+mangacork/static/images/*.txt
+
