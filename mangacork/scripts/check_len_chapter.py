@@ -18,12 +18,12 @@ def write_chapter_files():
     os.chdir('../static/images')
 
     root, chapters, files = next(os.walk(os.getcwd()))
-    for chapter in chapters:
-        path_list.append(os.path.join(root, chapter))
-    path_list = [p for p in chapters]
+
+    path_list = [os.path.join(root, chapter) for chapter in chapters]
     chapter_list = [name for name in files if not name[0] == '.']
+
     print path_list
-    # print chapter_list
+    print chapter_list
 
 
 def get_filepath(directory):
