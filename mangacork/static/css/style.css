@@ -7,13 +7,17 @@
     float: right;
 }
 
-
 .manga {
 	display: inline;
 }
 
 .manga img {
-	width: 75%;
+	width: 100%;
+}
+
+.manga i {
+    font-size: 5rem;
+    color: black;
 }
 
 .left_pane {
