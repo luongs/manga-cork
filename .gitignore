@@ -3,3 +3,6 @@ mangacork/static/images/dragonball_ch1
 mangacork/static/images/*.txt
 .cache
 *.swp
+build
+dist
+*.egg-info

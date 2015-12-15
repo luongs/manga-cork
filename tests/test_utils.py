@@ -1,4 +1,4 @@
-from mangacork.utils import build_img_path
+from mangacork import utils
 
 def func(x):
         return x+1
