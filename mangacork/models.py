@@ -1,6 +1,6 @@
-from app import db
+from . import db
 
-class LastPage(db.model):
+class LastPage(db.Model):
     __tablename__ = 'lastpage'
 
     id = db.Column(db.Integer, primary_key=True)
