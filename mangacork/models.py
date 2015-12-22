@@ -1,4 +1,4 @@
-from . import db
+from mangacork import db
 
 class LastPage(db.Model):
     __tablename__ = 'lastpage'
