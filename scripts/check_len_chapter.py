@@ -1,8 +1,13 @@
+import logging
 import os
 
+from mangacork import db
+from mangacork.models import LastPage
+
+logger = logging.getLogger(__name__)
 
 def make_chapter_files():
-    os.chdir('../static/images')
+    os.chdir('../mangacork/static/images')
 
     for _, dirs, files in os.walk(os.getcwd()):
 
@@ -27,7 +32,8 @@ def write_chapter_files():
         _, _, files = next(os.walk(path))
 
         if (len(files) > 0):
-            write_last_page(files[-1], filename)
+            write_last_page_to_file(files[-1], filename)
+            write_last_page_to_db(files[-1])
 
 
 def get_filepath(directory):
@@ -40,11 +46,20 @@ def make_file(filepath):
     f.close()
 
 
-def write_last_page(page_w_ext, filename):
+def write_last_page_to_file(page_w_ext, filename):
     f = open(filename, 'w')
     page, _ = page_w_ext.split('.')
     f.write(page)
     f.close()
+
+
+def write_last_page_to_db(page_w_ext):
+    table_value = LastPage(page_w_ext)
+    # Do not add if value already exists in db
+    if not LastPage.query.filter_by(lastpage=table_value.lastpage).count():
+        db.session.add(last_page)
+        db.session.commit()
+
 
 if __name__ == '__main__':
     make_chapter_files()
