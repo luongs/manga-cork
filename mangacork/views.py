@@ -30,7 +30,7 @@ def display(chapter, page):
     image_path = build_img_path(chapter, page)
     next_page_number = increment_page_number(page)
 
-    if (is_last_page(chapter, page)):
+    if (is_last_page(page, LAST_PAGE_LIST)):
         next_page = '/last_page'
     else:
         next_page = build_img_path(chapter, next_page_number)

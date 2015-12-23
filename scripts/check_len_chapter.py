@@ -54,10 +54,11 @@ def write_last_page_to_file(page_w_ext, filename):
 
 
 def write_last_page_to_db(page_w_ext):
-    table_value = LastPage(page_w_ext)
+    page, _ = page_w_ext.split('.')
+    table_value = LastPage(page)
     # Do not add if value already exists in db
     if not LastPage.query.filter_by(lastpage=table_value.lastpage).count():
-        db.session.add(last_page)
+        db.session.add(table_value)
         db.session.commit()
 
 
