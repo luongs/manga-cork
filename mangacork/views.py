@@ -11,11 +11,9 @@ logger = logging.getLogger(__name__)
 
 INDEX_CHAPTER = 'dragonball_ch1'
 INDEX_PAGE = 'ndragon_ball_v001-000'
-logger.info('Initialize LAST_PAGE_LIST from database')
-LAST_PAGE_LIST = LastPage.query.all()
+LAST_PAGE_LIST = [i.lastpage for i in LastPage.query.all()]
 logger.debug('Last Page List {}'.format(LAST_PAGE_LIST))
-for i in LAST_PAGE_LIST:
-    logger.debug(i.lastpage)
+
 
 @app.route('/')
 def index():
