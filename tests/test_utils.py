@@ -12,3 +12,9 @@ def test_build_img_path(sample_page):
         page = sample_page["page"]
         expected_output = "/chapter1/3"
         assert utils.build_img_path(chapter,page) == expected_output
+
+def test_increment_page_number_expected_format(sample_page):
+    current_page = utils.build_img_path(sample_page["chapter"],
+                                        sample_page["page"])
+    expected_output = "/chapter1/4"
+    assert utils.increment_page_number(current_page) == expected_output

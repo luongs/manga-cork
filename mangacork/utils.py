@@ -2,7 +2,11 @@ import os
 
 #TODO: Add tests and error handling if pages don't match format expected
 def increment_page_number(page):
-    page, page_number = page.split('-')
+    try:
+        page, page_number = page.split('-')
+    except ValueError:
+        print('- expected')
+
     # Add leading zeroes to keep expected page format
     page_number = str(int(page_number) + 1).zfill(3)
     next_page = '{page}-{page_number}'.format(
