@@ -3,18 +3,24 @@ import pytest
 from mangacork import utils
 
 @pytest.fixture
-def sample_page():
+def sample_page_bad_format():
     sample_page = {'chapter': "chapter1", 'page': 3}
     return sample_page
 
-def test_build_img_path(sample_page):
-        chapter = sample_page["chapter"]
-        page = sample_page["page"]
-        expected_output = "/chapter1/3"
-        assert utils.build_img_path(chapter,page) == expected_output
+@pytest.fixture
+def sample_page_good_format():
+    sample_page = {'chapter':'manga_ch1', 'page':'x_v001-001'}
+    return sample_page
 
-def test_increment_page_number_expected_format(sample_page):
-    current_page = utils.build_img_path(sample_page["chapter"],
-                                        sample_page["page"])
-    expected_output = "/chapter1/4"
-    assert utils.increment_page_number(current_page) == expected_output
+
+def test_build_img_path(sample_page_bad_format):
+    chapter = sample_page_bad_format["chapter"]
+    page = sample_page_bad_format["page"]
+    expected_output = "/chapter1/3"
+    assert utils.build_img_path(chapter,page) == expected_output
+
+def test_increment_page_number_bad_formate(sample_page_bad_format):
+    with pytest.raises(ValueError):
+        current_page = utils.build_img_path(sample_page_bad_format["chapter"],
+                                            sample_page_bad_format["page"])
+        utils.increment_page_number(current_page)

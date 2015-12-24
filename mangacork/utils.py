@@ -5,7 +5,7 @@ def increment_page_number(page):
     try:
         page, page_number = page.split('-')
     except ValueError:
-        print('- expected')
+        raise ValueError('- expected')
 
     # Add leading zeroes to keep expected page format
     page_number = str(int(page_number) + 1).zfill(3)
