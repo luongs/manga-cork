@@ -8,3 +8,4 @@ dist
 *.egg-info
 config.py
 note_to_self.txt
+*.DS_STORE
