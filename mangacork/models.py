@@ -17,13 +17,11 @@ class Comments(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     comment = db.Column(db.String(260), nullable=False)
-    page = db.Column(db.String(80), nullable=False)
-    chapter = db.Column(db.String(80), nullable=False)
+    image_path = db.Column(db.String(160), nullable=False)
 
-    def __init__(self, comment, page, chapter):
+    def __init__(self, comment, image_path):
         self.comment = comment
-        self.page = page
-        self.chapter = chapter
+        self.image_path = image_path
 
     def __repr__(self):
         return '<Comment {}>'.format(self.comment)
