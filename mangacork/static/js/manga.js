@@ -6,6 +6,19 @@ if (!localStorage.getItem('show_post_text') &&
         localStorage.setItem('show_comments', 'hidden');
 }
 
+document.addEventListener("DOMContentLoaded", checkHidden, false);
+
+function checkHidden(e) 
+{
+        if (localStorage.getItem('show_post_text') == 'hidden'){
+                hide_post_section();
+        }
+
+        if (localStorage.getItem('show_comments') == 'hidden')
+        {
+                hide_comments();
+        }
+}
 function toggle_post()
 {
         if (localStorage.getItem('show_post_text') == 'hidden'){
@@ -29,7 +42,7 @@ function toggle_comments()
         else
         {
                 localStorage.setItem('show_comments', 'hidden');
-               hide_comments(); 
+                hide_comments(); 
         }
 }
 
