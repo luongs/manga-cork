@@ -1,5 +1,6 @@
 import logging
 
+import flask.ext.login as flask_login
 from flask import render_template, request, redirect, url_for
 
 from . import app, db
@@ -37,6 +38,7 @@ def display(chapter, page):
 
 
 @app.route('/add', methods= ['POST'])
+@flask_login.login_required
 def add_entry():
     image_path = request.form['image_path']
     comment = request.form['post_text']
