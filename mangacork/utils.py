@@ -4,7 +4,6 @@ import os
 logger = logging.getLogger(__name__)
 
 
-#TODO: Add tests and error handling if pages don't match format expected
 def increment_page_number(page):
     try:
         page, page_number = page.split('-')
