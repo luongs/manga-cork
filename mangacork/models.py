@@ -1,3 +1,4 @@
+import arrow
 from mangacork import db
 
 class LastPage(db.Model):
@@ -25,3 +26,21 @@ class Comments(db.Model):
 
     def __repr__(self):
         return '<Comment {}>'.format(self.comment)
+
+
+class User(db.Model):
+    __tablename__ = "users"
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(20), unique=True, index=True)
+    password = db.Column(db.String(20))
+    email = db.Column(db.String(30), unique=True)
+    registered_on = db.Column(db.DateTime)
+
+    def __init__(self, username, password, email):
+        self.username = username
+        self.password = password
+        self.email = email
+        self.registered_on = arrow.utcnow()
+
+    def __repr(self):
+        return '<Username {}>'.format(self.username)
