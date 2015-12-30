@@ -11,7 +11,7 @@
 				</a>
 			</div>
             <div class="three columns">
-                <div class="post_section">
+                <div id="post_section" class="post_section">
                    <form method="post" action="{{ url_for('add_entry') }}">
                         <input type="hidden" name="image_path" value="{{ image_path }}"/>
                         <textarea name="post_text"  rows="4"></textarea>
@@ -24,7 +24,7 @@
                     onclick="toggle_post()"></i>
                 <i id="manga_edit_btn" class="fa fa-comments-o"
                     onclick="toggle_comments()"></i>
-                <div class="comment_section">
+                <div id="comment_section" class="comment_section">
                     <ul class="comments">
                     {% for i in comments %}
                         <li>{{i.comment}}</li>
