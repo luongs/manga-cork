@@ -9,7 +9,7 @@ def sample_page_bad_format():
 
 @pytest.fixture
 def sample_page_good_format():
-    sample_page = {'chapter':'manga_ch1', 'page':'x_v001-001'}
+    sample_page = {'chapter':'manga_ch1', 'page':'x_v001-009'}
     return sample_page
 
 def test_build_img_path(sample_page_bad_format):
@@ -30,5 +30,5 @@ def test_increment_page_number_good_format(sample_page_good_format):
     page = sample_page_good_format["page"]
     current_page = utils.build_img_path(chapter, page)
     next_page = utils.increment_page_number(current_page)
-    expected_output = '/manga_ch1/x_v001-002'
+    expected_output = '/manga_ch1/x_v001-010'
     assert next_page == expected_output
