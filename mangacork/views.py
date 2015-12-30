@@ -29,7 +29,8 @@ def index():
 def display(chapter, page):
     image_path = build_img_path(chapter, page)
     next_page_number = increment_page_number(page)
-    comments = Comments.query.filter_by(image_path=image_path).all()
+    comments = Comments.query.order_by(Comments.id.desc()).filter_by(
+                image_path=image_path).all()
 
     if (is_last_page(page, LAST_PAGE_LIST)):
         next_page = '/last_page'
