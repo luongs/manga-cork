@@ -20,8 +20,10 @@
 
                     </form>
                 </div>
-                <i id="manga_edit_btn" class="fa fa-pencil-square-o"></i>
-                <i id="manga_edit_btn" class="fa fa-comments-o"></i>
+                <i id="manga_edit_btn" class="fa fa-pencil-square-o" 
+                    onclick="toggle_post()"></i>
+                <i id="manga_edit_btn" class="fa fa-comments-o"
+                    onclick="toggle_comments()"></i>
                 <div class="comment_section">
                     <ul class="comments">
                     {% for i in comments %}
