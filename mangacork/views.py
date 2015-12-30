@@ -17,12 +17,7 @@ logger.debug('Last Page List {}'.format(LAST_PAGE_LIST))
 
 @app.route('/')
 def index():
-    image_path = build_img_path(INDEX_CHAPTER, INDEX_PAGE)
-    next_page_number = increment_page_number(INDEX_PAGE)
-    next_page = build_img_path(INDEX_CHAPTER, next_page_number)
-
-    return render_template('manga.html', next_page=next_page,
-                           image_path=image_path)
+    return redirect(url_for('display',chapter=INDEX_CHAPTER, page=INDEX_PAGE))
 
 
 @app.route('/<chapter>/<page>')
