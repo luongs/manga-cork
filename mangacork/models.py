@@ -42,5 +42,17 @@ class User(db.Model):
         self.email = email
         self.registered_on = arrow.utcnow()
 
+    def is_authenticated(self):
+        return True
+
+    def is_active(self):
+        return True
+
+    def is_anonymous(self):
+        return True
+
+    def get_id(self):
+        return unicode(self.id)
+
     def __repr(self):
         return '<Username {}>'.format(self.username)

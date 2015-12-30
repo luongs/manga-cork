@@ -3,9 +3,9 @@ import logging
 import flask.ext.login as flask_login
 from flask import render_template, request, redirect, url_for
 
-from . import app, db
+from . import app, db, login_manager
 from .utils import (increment_page_number, build_img_path, is_last_page)
-from .models import LastPage, Comments
+from .models import LastPage, Comments, User
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
@@ -14,6 +14,11 @@ INDEX_CHAPTER = 'dragonball_ch1'
 INDEX_PAGE = 'ndragon_ball_v001-000'
 LAST_PAGE_LIST = [i.lastpage for i in LastPage.query.all()]
 logger.debug('Last Page List {}'.format(LAST_PAGE_LIST))
+
+# Reloads user ID in session
+@login_manager.user_loader
+def load_user(id):
+    return User.query.get(int(id))
 
 
 @app.route('/')
@@ -35,6 +40,25 @@ def display(chapter, page):
 
     return render_template('manga.html', next_page=next_page,
                            image_path=image_path, comments=comments)
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'GET':
+        return render_template('register.html')
+    user = User(request.form['username'], request.form['password'],
+                request.form['email'])
+    db.session.add(user)
+    db.session.commit()
+    return redirect(url_for('login'))
+
+
+@app.route('/login', methods = ['GET','POST'])
+@login_manager.user_loader
+def login():
+    if request.method == 'GET':
+        return render_template('login.html')
+    return redirect(url_for('index'))
 
 
 @app.route('/add', methods= ['POST'])
