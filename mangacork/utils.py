@@ -1,11 +1,16 @@
+import logging
 import os
+
+logger = logging.getLogger(__name__)
+
 
 #TODO: Add tests and error handling if pages don't match format expected
 def increment_page_number(page):
     try:
         page, page_number = page.split('-')
     except ValueError:
-        raise ValueError('- expected')
+        raise ValueError('- expected in filename')
+        logger.debug('- expected in filename')
 
     # Add leading zeroes to keep expected page format
     page_number = str(int(page_number) + 1).zfill(3)

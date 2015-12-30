@@ -1,10 +1,10 @@
 import logging
 
-from flask import render_template
+from flask import render_template, request, redirect, url_for
 
-from . import app
+from . import app, db
 from .utils import (increment_page_number, build_img_path, is_last_page)
-from .models import LastPage
+from .models import LastPage, Comments
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
@@ -29,6 +29,7 @@ def index():
 def display(chapter, page):
     image_path = build_img_path(chapter, page)
     next_page_number = increment_page_number(page)
+    comments = Comments.query.filter_by(image_path=image_path).all()
 
     if (is_last_page(page, LAST_PAGE_LIST)):
         next_page = '/last_page'
@@ -36,8 +37,20 @@ def display(chapter, page):
         next_page = build_img_path(chapter, next_page_number)
 
     return render_template('manga.html', next_page=next_page,
-                           image_path=image_path)
+                           image_path=image_path, comments=comments)
 
+
+@app.route('/add', methods= ['POST'])
+def add_entry():
+    image_path = request.form['image_path']
+    comment = request.form['post_text']
+    _, chapter, page  = image_path.split('/')
+
+    new_comment = Comments(comment, image_path)
+    db.session.add(new_comment)
+    db.session.commit()
+
+    return redirect(url_for('display', chapter=chapter, page=page ))
 
 @app.route('/last_page')
 def display_lastpage():
