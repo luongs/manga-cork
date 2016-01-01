@@ -7,6 +7,7 @@ from flask.ext.login import (login_user, logout_user, current_user,
 from . import app, db, login_manager
 from .utils import (increment_page_number, build_img_path, is_last_page)
 from .models import LastPage, Comments, User
+from .forms import RegistrationForm, LoginForm
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
@@ -45,12 +46,14 @@ def display(chapter, page):
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    form = RegistrationForm(request.form)
     if request.method == 'GET':
         return render_template('register.html')
-    user = User(request.form['username'], request.form['password'],
-                request.form['email'])
-    db.session.add(user)
-    db.session.commit()
+    if request.method == 'POST' and form.validate():
+        user = User(form.username.data, form.email.data,
+                    form.password.data)
+        db.session.add(user)
+        db.session.commit()
     return redirect(url_for('login'))
 
 

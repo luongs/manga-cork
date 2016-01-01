@@ -1,5 +1,6 @@
 from flask.ext.wtf import Form
-from wtforms import StringField, BooleanField, validators
+from wtforms import (TextField, StringField, BooleanField,PasswordField,
+                    validators)
 
 
 class LoginForm(Form):
@@ -14,6 +15,6 @@ class RegistrationForm(Form):
     msg = 'Password must match'
     password = StringField('password', [validators.Length(min=4, max=25),
                            validators.Required(),
-                           validators.EqualTo('confirm', message=msg])
+                           validators.EqualTo('confirm', message=msg)])
     confirm = PasswordField('Repeat Password')
 
