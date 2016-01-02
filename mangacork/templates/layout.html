@@ -33,7 +33,7 @@
     <div class="container">
         <div class="row">
             <div class="twelve columns">
-                <dialog id="login_form">
+                <dialog id="login_form" onclick="check_click_location(event)">
                 <form action = "{{ url_for('login') }}" method="post">
                     <label for="username">Username</label>
                     <input type="text" name="username" />
