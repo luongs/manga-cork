@@ -22,10 +22,29 @@
                 <a href="/"><h1> Manga Cork! </h1> </a>
             </div>
             <div class="six columns">
-                <button> Log in </button>
+                <button id="login_button" onclick="show_login_form()"> Log in </button>
             </div>
         </div>
     </div>
 </header>
+<section class="login">
+    <div class="container">
+        <div class="row">
+            <div class="twelve columns">
+                <dialog id="login_form">
+                <form action = "{{ url_for('login') }}" method="post">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" />
+                    <label for="password">Password</label>
+                    <input type="password" name="password"/>
+                    <br>
+                    <input type="submit" value="Submit" />
+                    {{ form.csrf_token }}
+                </form>
+                </dialog>
+            </div>
+        </div>
+    </div>
+</section>
 {% block body %} {% endblock %}
 </html>

@@ -30,6 +30,7 @@ def index():
 
 @app.route('/<chapter>/<page>')
 def display(chapter, page):
+    form = LoginForm()
     image_path = build_img_path(chapter, page)
     next_page_number = increment_page_number(page)
     comments = Comments.query.order_by(Comments.id.desc()).filter_by(
@@ -40,7 +41,7 @@ def display(chapter, page):
     else:
         next_page = build_img_path(chapter, next_page_number)
 
-    return render_template('manga.html', next_page=next_page,
+    return render_template('manga.html',form=form, next_page=next_page,
                            image_path=image_path, comments=comments)
 
 
@@ -60,9 +61,15 @@ def register():
 @app.route('/login', methods = ['GET','POST'])
 @login_manager.user_loader
 def login():
-    if request.method == 'GET':
-        return render_template('login.html')
-    return redirect(url_for('index'))
+    form = LoginForm()
+    if form.validate_on_submit():
+        # Check pwd and log user in
+
+        # [...]
+        return redirect(url_for('index'))
+    # form has not been submitted (GET request)
+    # therefore render login page
+    return render_template('login.html', form=form)
 
 
 @app.route('/add', methods= ['POST'])
