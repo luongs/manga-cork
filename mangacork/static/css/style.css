@@ -10,6 +10,12 @@
     float: right;
 }
 
+/* LOGIN SECTION
+----------------------------------------*/
+.login dialog::backdrop {
+    background-color: rgba(0,0,0,0.5);
+}
+
 /* MANGA SECTION
 ----------------------------------------*/
 

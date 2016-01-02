@@ -64,7 +64,7 @@ function show_comments()
 function show_login_form()
 {
     var login_form = document.getElementById('login_form');
-    alert("Login Modal!");
+    dialogPolyfill.registerDialog(login_form);
     login_form.showModal();
 }
 
