@@ -28,9 +28,15 @@ def index():
     return redirect(url_for('display',chapter=INDEX_CHAPTER, page=INDEX_PAGE))
 
 
-@app.route('/<chapter>/<page>')
+@app.route('/<chapter>/<page>', methods=['GET','POST'])
 def display(chapter, page):
     form = LoginForm()
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            # Check pwd and log user in
+            print('VALID FORM!!!')
+            # [...]
+            return redirect(url_for('index'))
     image_path = build_img_path(chapter, page)
     next_page_number = increment_page_number(page)
     comments = Comments.query.order_by(Comments.id.desc()).filter_by(
@@ -42,7 +48,7 @@ def display(chapter, page):
         next_page = build_img_path(chapter, next_page_number)
 
     return render_template('manga.html',form=form, next_page=next_page,
-                           image_path=image_path, comments=comments)
+                           page=page,chapter=chapter, comments=comments)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -58,26 +64,12 @@ def register():
     return redirect(url_for('login'))
 
 
-@app.route('/login', methods = ['GET','POST'])
-@login_manager.user_loader
-def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        # Check pwd and log user in
-
-        # [...]
-        return redirect(url_for('index'))
-    # form has not been submitted (GET request)
-    # therefore render login page
-    return render_template('login.html', form=form)
-
-
 @app.route('/add', methods= ['POST'])
 @login_required
 def add_entry():
-    image_path = request.form['image_path']
+    chapter = request.form['chapter']
+    page = request.form['page']
     comment = request.form['post_text']
-    _, chapter, page  = image_path.split('/')
 
     new_comment = Comments(comment, image_path)
     db.session.add(new_comment)

@@ -34,7 +34,7 @@
         <div class="row">
             <div class="twelve columns">
                 <dialog id="login_form" onclick="check_click_location(event)">
-                <form action = "{{ url_for('login') }}" method="post">
+                <form action = "/{{ chapter }}/{{ page }}" method="post">
                     <label for="username">Username</label>
                     <input type="text" name="username" />
                     <label for="password">Password</label>

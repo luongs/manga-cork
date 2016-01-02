@@ -6,14 +6,15 @@
 			<div class="nine columns">
 
 				<a href="{{ next_page }}">
-						<img src="/static/images/{{ image_path }}.jpg"
+						<img src="/static/images/{{ chapter }}/{{ page }}.jpg"
                              alt="manga pic"/>
 				</a>
 			</div>
             <div class="three columns">
                 <div id="post_section" class="post_section">
                    <form method="post" action="{{ url_for('add_entry') }}">
-                        <input type="hidden" name="image_path" value="{{ image_path }}"/>
+                        <input type="hidden" name="chapter" value="{{ chapter }}"/>
+                        <input type="hidden" name="page" value="{{ page }}"/>
                         <textarea name="post_text"  rows="4"></textarea>
                         <br/>
                         <input type="submit" value="Post">
