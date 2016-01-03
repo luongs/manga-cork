@@ -31,21 +31,26 @@ def index():
 @app.route('/<chapter>/<page>', methods=['GET','POST'])
 def display(chapter, page):
     form = LoginForm()
+    image_path = build_img_path(chapter, page)
+    next_page_number = increment_page_number(page)
+    comments = Comments.query.order_by(Comments.id.desc()).filter_by(
+                image_path=image_path).all()
+    if (is_last_page(page, LAST_PAGE_LIST)):
+        next_page = '/last_page'
+    else:
+        next_page = build_img_path(chapter, next_page_number)
+
     if request.method == 'POST':
         if form.validate_on_submit():
             # Check pwd and log user in
             print('VALID FORM!!!')
             # [...]
             return redirect(url_for('index'))
-    image_path = build_img_path(chapter, page)
-    next_page_number = increment_page_number(page)
-    comments = Comments.query.order_by(Comments.id.desc()).filter_by(
-                image_path=image_path).all()
-
-    if (is_last_page(page, LAST_PAGE_LIST)):
-        next_page = '/last_page'
-    else:
-        next_page = build_img_path(chapter, next_page_number)
+        else:
+            login_error = True
+            return render_template('manga.html',form=form, next_page=next_page,
+                           page=page,chapter=chapter, comments=comments,
+                           login_error=login_error)
 
     return render_template('manga.html',form=form, next_page=next_page,
                            page=page,chapter=chapter, comments=comments)
@@ -65,11 +70,12 @@ def register():
 
 
 @app.route('/add', methods= ['POST'])
-@login_required
+# @login_required
 def add_entry():
     chapter = request.form['chapter']
     page = request.form['page']
     comment = request.form['post_text']
+    image_path = build_img_path(chapter, page)
 
     new_comment = Comments(comment, image_path)
     db.session.add(new_comment)

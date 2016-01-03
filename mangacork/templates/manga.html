@@ -1,5 +1,9 @@
 {% extends "layout.html" %}
 {% block body %}
+
+{% if login_error %}
+<body onload="show_login_form()">
+{% endif %}
 <section class="manga">
 	<div class="container">
 		<div class="row">
@@ -36,5 +40,7 @@
 		</div>
 	</div>
 </section>
-
+{% if login_error %}
+</body>
+{% endif %}
 {% endblock %}
