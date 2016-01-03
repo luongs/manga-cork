@@ -3,6 +3,8 @@
 
 {% if login_error %}
 <body onload="show_login_form()">
+{% elif signup_error %}
+<body onload="show_signup_form()">
 {% endif %}
 <section class="manga">
 	<div class="container">
@@ -41,6 +43,8 @@
 	</div>
 </section>
 {% if login_error %}
+</body>
+{% elif signup_error %}
 </body>
 {% endif %}
 {% endblock %}

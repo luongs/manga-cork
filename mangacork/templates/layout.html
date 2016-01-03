@@ -51,10 +51,40 @@
                                             {{ error }}{% endfor %}</p>
                     {% endif %}
                     <br>
-                    <a href="#" onclick="show_register_form()"> Register </a>
+                    <a href="#" onclick="show_signup_form()"> Sign Up </a>
                     <br>
                     <input type="submit" value="Submit" />
                     {{ login_form.csrf_token }}
+                </form>
+                </dialog>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="signup">
+    <div class="container">
+        <div class="row">
+            <div class="twelve columns">
+                <dialog id="signup_form" onclick="check_click_location_signup(event)">
+                <form action = "/signup"  method="post">
+                    <input type="hidden" name="chapter" value="{{ chapter }}" />
+                    <input type="hidden" name="page" value="{{ page }}" />
+
+                    <label for="username">Username</label>
+                    <input type="text" name="username" />
+                    {% if signup_form.username.errors %}
+                        <p class="errors">{% for error in signup_form.username.errors %}
+                                            {{ error }}{% endfor %}</p>
+                    {% endif %}
+                    <label for="password">Password</label>
+                    <input type="password" name="password"/>
+                     {% if signup_form.password.errors %}
+                        <p class="errors">{% for error in signup_form.password.errors %}
+                                            {{ error }}{% endfor %}</p>
+                    {% endif %}
+                    <br>
+                    <input type="submit" value="Submit" />
+                    {{ signup_form.csrf_token }}
                 </form>
                 </dialog>
             </div>

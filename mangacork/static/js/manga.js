@@ -84,26 +84,27 @@ function hide_login_form()
             login_form.close();
 }
 
-function show_register_form()
+function show_signup_form()
 {
     var login_form = document.getElementById('login_form');
-    var register_form = document.getElementById('register_form');
+    var signup_form = document.getElementById('signup_form');
     if (login_form.open)
             login_form.close();
-    register_form.showModal();
+    dialogPolyfill.registerDialog(signup_form);
+    signup_form.showModal();
 }
 
-function hide_register_form()
+function hide_signup_form()
 {
-    var register_form = document.getElementById('register_form');
-    if (register_form.open)
-        register_form.close();
+    var signup_form = document.getElementById('signup_form');
+    if (signup_form.open)
+        signup_form.close();
 }
 
-function clicked_in_register_form(mouseEvent) {
+function clicked_in_signup_form(mouseEvent) {
 
-    var register_form = document.getElementById('register_form');
-    var rect = register_form.getBoundingClientRect();
+    var signup_form = document.getElementById('signup_form');
+    var rect = signup_form.getBoundingClientRect();
     return rect.top <= mouseEvent.clientY && mouseEvent.clientY <= rect.top +
         rect.height && rect.left <= mouseEvent.clientX && mouseEvent.clientX
         <= rect.left + rect.width;
@@ -115,10 +116,10 @@ function check_click_location_login(e) {
     hide_login_form();
 }
 
-function check_click_location_register(e) {
-    if (clicked_in_register_form(e))
+function check_click_location_signup(e) {
+    if (clicked_in_signup_form(e))
         return;
-    hide_register_form();
+    hide_signup_form();
 }
 
 /* END OF FUNCTIONS */

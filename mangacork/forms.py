@@ -15,7 +15,7 @@ class LoginForm(Form):
     password = StringField('password',
                             [validators.Required(message=pwd_req_msg)])
 
-class RegistrationForm(Form):
+class SignupForm(Form):
     user_len_msg = 'Username cannot be longer than 25 characters'
     user_req_msg = 'Username must be filled'
     pwd_req_msg = 'Password must be filled'
