@@ -93,10 +93,32 @@ function show_register_form()
     register_form.showModal();
 }
 
-function check_click_location(e) {
+function hide_register_form()
+{
+    var register_form = document.getElementById('register_form');
+    if (register_form.open)
+        register_form.close();
+}
+
+function clicked_in_register_form(mouseEvent) {
+
+    var register_form = document.getElementById('register_form');
+    var rect = register_form.getBoundingClientRect();
+    return rect.top <= mouseEvent.clientY && mouseEvent.clientY <= rect.top +
+        rect.height && rect.left <= mouseEvent.clientX && mouseEvent.clientX
+        <= rect.left + rect.width;
+}
+
+function check_click_location_login(e) {
     if (clicked_in_login_form(e))
         return;
     hide_login_form();
+}
+
+function check_click_location_register(e) {
+    if (clicked_in_register_form(e))
+        return;
+    hide_register_form();
 }
 
 /* END OF FUNCTIONS */
