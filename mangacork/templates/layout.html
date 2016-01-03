@@ -48,7 +48,34 @@
                                             {{ error }}{% endfor %}</p>
                     {% endif %}
                     <br>
-                    <a href="#"> Register </a>
+                    <a href="#" onclick="show_register_form()"> Register </a>
+                    <br>
+                    <input type="submit" value="Submit" />
+                    {{ form.csrf_token }}
+                </form>
+                </dialog>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="register">
+    <div class="container">
+        <div class="row">
+            <div class="twelve columns">
+                <dialog id="register_form" onclick="check_click_location(event)">
+                <form action = "/{{ chapter }}/{{ page }}"  method="post">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" />
+                    {% if form.username.errors %}
+                        <p class="errors">{% for error in form.username.errors %}
+                                            {{ error }}{% endfor %}</p>
+                    {% endif %}
+                    <label for="password">Password</label>
+                    <input type="password" name="password"/>
+                     {% if form.password.errors %}
+                        <p class="errors">{% for error in form.password.errors %}
+                                            {{ error }}{% endfor %}</p>
+                    {% endif %}
                     <br>
                     <input type="submit" value="Submit" />
                     {{ form.csrf_token }}

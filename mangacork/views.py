@@ -35,15 +35,16 @@ def display(chapter, page):
     next_page_number = increment_page_number(page)
     comments = Comments.query.order_by(Comments.id.desc()).filter_by(
                 image_path=image_path).all()
+
     if (is_last_page(page, LAST_PAGE_LIST)):
         next_page = '/last_page'
     else:
         next_page = build_img_path(chapter, next_page_number)
 
+    # Form submission attempt
     if request.method == 'POST':
         if form.validate_on_submit():
             # Check pwd and log user in
-            print('VALID FORM!!!')
             # [...]
             return redirect(url_for('index'))
         else:

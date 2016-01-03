@@ -10,13 +10,16 @@
     float: right;
 }
 
-/* LOGIN SECTION
+/* LOGIN + REGISTER SECTION
 ----------------------------------------*/
 
 .login dialog::backdrop {
     background-color: rgba(0,0,0,0.7);
 }
 
+.register dialog::backdrop {
+    background-color: rgba(0,0,0,0.7);
+}
 /* MANGA SECTION
 ----------------------------------------*/
 

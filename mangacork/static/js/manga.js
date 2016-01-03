@@ -84,6 +84,15 @@ function hide_login_form()
             login_form.close();
 }
 
+function show_register_form()
+{
+    var login_form = document.getElementById('login_form');
+    var register_form = document.getElementById('register_form');
+    if (login_form.open)
+            login_form.close();
+    register_form.showModal();
+}
+
 function check_click_location(e) {
     if (clicked_in_login_form(e))
         return;
