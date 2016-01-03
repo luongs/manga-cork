@@ -16,12 +16,19 @@ class LoginForm(Form):
                             [validators.Required(message=pwd_req_msg)])
 
 class RegistrationForm(Form):
-    username = TextField('username', [validators.Length(min=4, max=25),
-                          validators.Required(),
+    user_len_msg = 'Username cannot be longer than 25 characters'
+    user_req_msg = 'Username must be filled'
+    pwd_req_msg = 'Password must be filled'
+    pwd_len_msg = 'Password cannot be longer than 25 characters'
+    pwd_match_msg = 'Passwords must match'
+    username = TextField('username', [validators.Length(max=25,
+                                                        message=user_len_msg),
+                          validators.Required(message=user_req_msg),
                           Unique(User,User.username,message='Username taken')])
-    msg = 'Password must match'
-    password = StringField('password', [validators.Length(min=4, max=25),
-                           validators.InputRequired(),
-                           validators.EqualTo('confirm', message=msg)])
+    password = StringField('password', [validators.Length(max=25,
+                                                          message=pwd_req_msg),
+                           validators.InputRequired(message=pwd_req_msg),
+                           validators.EqualTo('confirm',
+                                              message=pwd_match_msg)])
     confirm = PasswordField('Repeat Password')
 

@@ -34,56 +34,33 @@
         <div class="row">
             <div class="twelve columns">
                 <dialog id="login_form" onclick="check_click_location_login(event)">
-                <form action = "/{{ chapter }}/{{ page }}"  method="post">
+                <form action = "/login"  method="post">
+                    <input type="hidden" name="chapter" value="{{ chapter }}" />
+                    <input type="hidden" name="page" value="{{ page }}" />
+
                     <label for="username">Username</label>
                     <input type="text" name="username" />
-                    {% if form.username.errors %}
-                        <p class="errors">{% for error in form.username.errors %}
+                    {% if login_form.username.errors %}
+                        <p class="errors">{% for error in login_form.username.errors %}
                                             {{ error }}{% endfor %}</p>
                     {% endif %}
                     <label for="password">Password</label>
                     <input type="password" name="password"/>
-                     {% if form.password.errors %}
-                        <p class="errors">{% for error in form.password.errors %}
+                     {% if login_form.password.errors %}
+                        <p class="errors">{% for error in login_form.password.errors %}
                                             {{ error }}{% endfor %}</p>
                     {% endif %}
                     <br>
                     <a href="#" onclick="show_register_form()"> Register </a>
                     <br>
                     <input type="submit" value="Submit" />
-                    {{ form.csrf_token }}
+                    {{ login_form.csrf_token }}
                 </form>
                 </dialog>
             </div>
         </div>
     </div>
 </section>
-<section class="register">
-    <div class="container">
-        <div class="row">
-            <div class="twelve columns">
-                <dialog id="register_form" onclick="check_click_location_register(event)">
-                <form action = "/{{ chapter }}/{{ page }}"  method="post">
-                    <label for="username">Username</label>
-                    <input type="text" name="username" />
-                    {% if form.username.errors %}
-                        <p class="errors">{% for error in form.username.errors %}
-                                            {{ error }}{% endfor %}</p>
-                    {% endif %}
-                    <label for="password">Password</label>
-                    <input type="password" name="password"/>
-                     {% if form.password.errors %}
-                        <p class="errors">{% for error in form.password.errors %}
-                                            {{ error }}{% endfor %}</p>
-                    {% endif %}
-                    <br>
-                    <input type="submit" value="Submit" />
-                    {{ form.csrf_token }}
-                </form>
-                </dialog>
-            </div>
-        </div>
-    </div>
-</section>
+
 {% block body %} {% endblock %}
 </html>

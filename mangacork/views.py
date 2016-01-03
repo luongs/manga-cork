@@ -30,7 +30,8 @@ def index():
 
 @app.route('/<chapter>/<page>', methods=['GET','POST'])
 def display(chapter, page):
-    form = LoginForm()
+    login_form = LoginForm()
+    login_error = request.args.get('login_error')
     image_path = build_img_path(chapter, page)
     next_page_number = increment_page_number(page)
     comments = Comments.query.order_by(Comments.id.desc()).filter_by(
@@ -41,20 +42,23 @@ def display(chapter, page):
     else:
         next_page = build_img_path(chapter, next_page_number)
 
-    # Form submission attempt
-    if request.method == 'POST':
-        if form.validate_on_submit():
-            # Check pwd and log user in
-            # [...]
-            return redirect(url_for('index'))
-        else:
-            login_error = True
-            return render_template('manga.html',form=form, next_page=next_page,
-                           page=page,chapter=chapter, comments=comments,
-                           login_error=login_error)
+    return render_template('manga.html',login_form=login_form,
+                            next_page=next_page,page=page,chapter=chapter,
+                            comments=comments,login_error=login_error)
 
-    return render_template('manga.html',form=form, next_page=next_page,
-                           page=page,chapter=chapter, comments=comments)
+
+@app.route('/login', methods=['POST'])
+def login():
+    login_form = LoginForm()
+    chapter = request.form['chapter']
+    page = request.form['page']
+    if login_form.validate_on_submit():
+        return redirect(url_for('index'))
+    else:
+        login_error = True
+        # Reloads page with login modal opened
+        return redirect(url_for('display', chapter=chapter, page=page,
+                                login_error=login_error))
 
 
 @app.route('/register', methods=['GET', 'POST'])
