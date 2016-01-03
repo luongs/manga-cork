@@ -90,4 +90,5 @@ def add_entry():
 
 @app.route('/last_page')
 def display_lastpage():
-    return render_template('lastpage.html')
+    login_form = LoginForm()
+    return render_template('lastpage.html',login_form=login_form)
