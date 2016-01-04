@@ -17,13 +17,13 @@
     background-color: rgba(0,0,0,0.7);
 }
 
-.login .errors {
-    margin-bottom: 0rem;
-    color: red; 
-}
-
 .signup dialog::backdrop {
     background-color: rgba(0,0,0,0.7);
+}
+
+.errors {
+    margin-bottom: 0rem;
+    color: red;
 }
 
 /* MANGA SECTION

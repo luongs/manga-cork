@@ -35,6 +35,7 @@ def display(chapter, page):
     login_error = request.args.get('login_error')
     signup_error = request.args.get('signup_error')
     login_error_buffer = request.args.get('login_error_buffer')
+    signup_error_buffer = request.args.get('signup_error_buffer')
 
     image_path = build_img_path(chapter, page)
     next_page_number = increment_page_number(page)
@@ -50,6 +51,7 @@ def display(chapter, page):
                             login_form=login_form,login_error=login_error,
                             login_error_buffer=login_error_buffer,
                             signup_form=signup_form, signup_error=signup_error,
+                            signup_error_buffer=signup_error_buffer,
                             next_page=next_page,page=page,chapter=chapter,
                             comments=comments)
 
@@ -59,6 +61,7 @@ def login():
     login_form = LoginForm()
     chapter = request.form['chapter']
     page = request.form['page']
+
     if login_form.validate_on_submit():
         return redirect(url_for('index'))
     else:
@@ -82,9 +85,13 @@ def signup():
         return redirect(url_for('index'))
     else:
         signup_error = True
+        for _, error_messages in signup_form.errors.iteritems():
+            for error in error_messages:
+                signup_error_buffer= error
         # Reloads page with signup modal opened
         return redirect(url_for('display', chapter=chapter, page=page,
-                                signup_error=signup_error))
+                                signup_error=signup_error,
+                                signup_error_buffer=signup_error_buffer))
 
 
 @app.route('/add', methods= ['POST'])

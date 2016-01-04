@@ -41,10 +41,10 @@
 
                     <label for="username">Username</label>
                     <input type="text" name="username" />
-                    
+
                     <label for="password">Password</label>
                     <input type="password" name="password"/>
-                     {% if login_error_buffer %}
+                    {% if login_error_buffer %}
                         <p class="errors">{{ login_error_buffer }}</p>
                     {% endif %}
                     <br>
@@ -70,15 +70,11 @@
 
                     <label for="username">Username</label>
                     <input type="text" name="username" />
-                    {% if signup_form.username.errors %}
-                        <p class="errors">{% for error in signup_form.username.errors %}
-                                            {{ error }}{% endfor %}</p>
-                    {% endif %}
+
                     <label for="password">Password</label>
                     <input type="password" name="password"/>
-                     {% if signup_form.password.errors %}
-                        <p class="errors">{% for error in signup_form.password.errors %}
-                                            {{ error }}{% endfor %}</p>
+                    {% if signup_error_buffer %}
+                        <p class="errors">{{ signup_error_buffer }}</p>
                     {% endif %}
                     <br>
                     <input type="submit" value="Submit" />
