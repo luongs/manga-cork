@@ -68,8 +68,9 @@ def login():
         login_error = True
         login_error_buffer = ""
         for _, error_messages in login_form.errors.iteritems():
-            for error in error_messages:
-                login_error_buffer= error
+            # print out first error message only
+            login_error_buffer= error_messages[0]
+            break
         # Reloads page with login modal opened
         return redirect(url_for('display', chapter=chapter, page=page,
                                 login_error=login_error,
@@ -81,13 +82,15 @@ def signup():
     signup_form = SignupForm()
     chapter = request.form['chapter']
     page = request.form['page']
+
     if signup_form.validate_on_submit():
         return redirect(url_for('index'))
     else:
         signup_error = True
         for _, error_messages in signup_form.errors.iteritems():
-            for error in error_messages:
-                signup_error_buffer= error
+            # print out first error message only
+            signup_error_buffer= error_messages[0]
+            break
         # Reloads page with signup modal opened
         return redirect(url_for('display', chapter=chapter, page=page,
                                 signup_error=signup_error,

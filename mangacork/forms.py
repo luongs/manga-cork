@@ -9,10 +9,10 @@ class LoginForm(Form):
     user_len_msg = 'Username is too long'
     user_req_msg = 'Username must be filled'
     pwd_req_msg = 'Password must be filled'
-    username = TextField('username',
+    username = TextField('Username',
                          [validators.Length(max=25,message=user_len_msg),
                             validators.Required(message=user_req_msg)])
-    password = StringField('password',
+    password = StringField('Password',
                             [validators.Required(message=pwd_req_msg)])
 
 class SignupForm(Form):
@@ -21,11 +21,11 @@ class SignupForm(Form):
     pwd_req_msg = 'Password must be filled'
     pwd_len_msg = 'Password cannot be longer than 25 characters'
     pwd_match_msg = 'Passwords must match'
-    username = TextField('username', [validators.Length(max=25,
+    username = TextField('Username', [validators.Length(max=25,
                                                         message=user_len_msg),
                           validators.Required(message=user_req_msg),
                           Unique(User,User.username,message='Username taken')])
-    password = StringField('password', [validators.Length(max=25,
+    password = StringField('Password', [validators.Length(max=25,
                                                           message=pwd_req_msg),
                            validators.InputRequired(message=pwd_req_msg),
                            validators.EqualTo('confirm',

@@ -39,11 +39,12 @@
                     <input type="hidden" name="chapter" value="{{ chapter }}" />
                     <input type="hidden" name="page" value="{{ page }}" />
 
-                    <label for="username">Username</label>
-                    <input type="text" name="username" />
+                    {{ login_form.username.label }}
+                    {{ login_form.username() }}
 
-                    <label for="password">Password</label>
-                    <input type="password" name="password"/>
+                    {{ login_form.password.label }}
+                    {{ login_form.password() }}
+
                     {% if login_error_buffer %}
                         <p class="errors">{{ login_error_buffer }}</p>
                     {% endif %}
@@ -68,11 +69,15 @@
                     <input type="hidden" name="chapter" value="{{ chapter }}" />
                     <input type="hidden" name="page" value="{{ page }}" />
 
-                    <label for="username">Username</label>
-                    <input type="text" name="username" />
+                    {{ signup_form.username.label }}
+                    {{ signup_form.username() }}
 
-                    <label for="password">Password</label>
-                    <input type="password" name="password"/>
+                    {{ signup_form.password.label }}
+                    {{ signup_form.password() }}
+
+                    {{ signup_form.confirm.label }}
+                    {{ signup_form.confirm() }}
+
                     {% if signup_error_buffer %}
                         <p class="errors">{{ signup_error_buffer }}</p>
                     {% endif %}
