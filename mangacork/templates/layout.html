@@ -34,21 +34,18 @@
         <div class="row">
             <div class="twelve columns">
                 <dialog id="login_form" onclick="check_click_location_login(event)">
+                <h3> Login </h3>
                 <form action = "/login"  method="post">
                     <input type="hidden" name="chapter" value="{{ chapter }}" />
                     <input type="hidden" name="page" value="{{ page }}" />
 
                     <label for="username">Username</label>
                     <input type="text" name="username" />
-                    {% if login_form.username.errors %}
-                        <p class="errors">{% for error in login_form.username.errors %}
-                                            {{ error }}{% endfor %}</p>
-                    {% endif %}
+                    
                     <label for="password">Password</label>
                     <input type="password" name="password"/>
-                     {% if login_form.password.errors %}
-                        <p class="errors">{% for error in login_form.password.errors %}
-                                            {{ error }}{% endfor %}</p>
+                     {% if login_error_buffer %}
+                        <p class="errors">{{ login_error_buffer }}</p>
                     {% endif %}
                     <br>
                     <a href="#" onclick="show_signup_form()"> Sign Up </a>
@@ -66,6 +63,7 @@
         <div class="row">
             <div class="twelve columns">
                 <dialog id="signup_form" onclick="check_click_location_signup(event)">
+                <h3> Sign Up </h3>
                 <form action = "/signup"  method="post">
                     <input type="hidden" name="chapter" value="{{ chapter }}" />
                     <input type="hidden" name="page" value="{{ page }}" />

@@ -34,6 +34,7 @@ def display(chapter, page):
     signup_form = SignupForm()
     login_error = request.args.get('login_error')
     signup_error = request.args.get('signup_error')
+    login_error_buffer = request.args.get('login_error_buffer')
 
     image_path = build_img_path(chapter, page)
     next_page_number = increment_page_number(page)
@@ -47,6 +48,7 @@ def display(chapter, page):
 
     return render_template('manga.html',
                             login_form=login_form,login_error=login_error,
+                            login_error_buffer=login_error_buffer,
                             signup_form=signup_form, signup_error=signup_error,
                             next_page=next_page,page=page,chapter=chapter,
                             comments=comments)
@@ -61,9 +63,14 @@ def login():
         return redirect(url_for('index'))
     else:
         login_error = True
+        login_error_buffer = ""
+        for _, error_messages in login_form.errors.iteritems():
+            for error in error_messages:
+                login_error_buffer= error
         # Reloads page with login modal opened
         return redirect(url_for('display', chapter=chapter, page=page,
-                                login_error=login_error))
+                                login_error=login_error,
+                                login_error_buffer=login_error_buffer))
 
 
 @app.route('/signup', methods=['POST'])
