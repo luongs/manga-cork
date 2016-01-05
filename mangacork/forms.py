@@ -12,7 +12,7 @@ class LoginForm(Form):
     username = TextField('Username',
                          [validators.Length(max=25,message=user_len_msg),
                             validators.Required(message=user_req_msg)])
-    password = StringField('Password',
+    password = PasswordField('Password',
                             [validators.Required(message=pwd_req_msg)])
 
 class SignupForm(Form):
@@ -31,7 +31,7 @@ class SignupForm(Form):
                           Unique(User,User.username, message=user_dupl_msg)])
     email = TextField('Email', [validators.Email(message=email_format_msg),
                                 validators.Required(message=email_req_msg)])
-    password = StringField('Password', [validators.Length(max=25,
+    password = PasswordField('Password', [validators.Length(max=25,
                                                           message=pwd_req_msg),
                            validators.InputRequired(message=pwd_req_msg),
                            validators.EqualTo('confirm',

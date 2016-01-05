@@ -1,5 +1,6 @@
 import arrow
-from mangacork import db
+
+from mangacork import bcrypt,db
 
 class LastPage(db.Model):
     __tablename__ = 'lastpage'
@@ -32,16 +33,17 @@ class User(db.Model):
     __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, index=True)
-    password = db.Column(db.String(20))
+    password = db.Column(db.String(180))
     email = db.Column(db.String(30), unique=True)
     registered_on = db.Column(db.DateTime)
 
-    def __init__(self, username, password, email):
+    def __init__(self, username, plaintext, email):
         self.username = username
-        self.password = password
+        self.password = bcrypt.generate_password_hash(plaintext)
         self.email = email
-        self.registered_on = arrow.utcnow()
+        self.registered_on = arrow.utcnow().datetime
 
+    # Following methods required by WTForms
     def is_authenticated(self):
         return True
 

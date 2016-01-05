@@ -84,7 +84,13 @@ def signup():
     page = request.form['page']
 
     if signup_form.validate_on_submit():
-        return redirect(url_for('index'))
+        user = User(username=signup_form.username.data,
+                    plaintext=signup_form.password.data,
+                    email=signup_form.email.data)
+        db.session.add(user)
+        db.session.commit()
+
+        return redirect(url_for('display', chapter=chapter, page=page))
     else:
         signup_error = True
         for _, error_messages in signup_form.errors.iteritems():
