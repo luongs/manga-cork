@@ -21,10 +21,14 @@
     <div class="container">
         <div class="row">
             <div class="six columns">
-                <a href="/"><h1> Manga Cork! </h1> </a>
+                <a href="{{ url_for('index') }}"><h1> Manga Cork! </h1> </a>
             </div>
             <div class="six columns">
-                <button id="login_button" onclick="show_login_form()"> Log in </button>
+                {% if session['username'] %}
+                    <a href="{{ url_for('signout') }}" id="logout_button" class="button"> {{ session['username'] }} - Log out </a>
+                {% else %}
+                    <button id="login_button" onclick="show_login_form()"> Log in </button>
+                {% endif %}
             </div>
         </div>
     </div>

@@ -10,6 +10,11 @@
     float: right;
 }
 
+#logout_button {
+    margin-top: 1rem;
+    float: right;
+}
+
 /* LOGIN + REGISTER SECTION
 ----------------------------------------*/
 

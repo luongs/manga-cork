@@ -1,6 +1,6 @@
 import logging
 
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, session, url_for
 from flask.ext.login import (login_user, logout_user, current_user,
                              login_required)
 
@@ -48,7 +48,7 @@ def display(chapter, page):
                             signup_form=signup_form, signup_error=signup_error,
                             signup_error_buffer=signup_error_buffer,
                             next_page=next_page,page=page,chapter=chapter,
-                            comments=comments)
+                            comments=comments, session=session)
 
 
 @app.route('/login', methods=['POST'])
@@ -67,6 +67,7 @@ def login():
             login_error_buffer = "Username does not exist"
         elif user.is_correct_password(plaintext=login_form.password.data):
             login_user(user)
+            session['username'] = user.username
         else:
             login_error=True
             login_error_buffer = "Incorrect password"
@@ -108,6 +109,12 @@ def signup():
                                 signup_error=signup_error,
                                 signup_error_buffer=signup_error_buffer))
 
+
+@app.route('/signout')
+def signout():
+    session.clear()
+    logout_user()
+    return redirect(url_for('index'))
 
 @app.route('/add', methods= ['POST'])
 @login_required
