@@ -116,6 +116,7 @@ def signout():
     logout_user()
     return redirect(url_for('index'))
 
+
 @app.route('/add', methods= ['POST'])
 @login_required
 def add_entry():
@@ -123,8 +124,9 @@ def add_entry():
     page = request.form['page']
     comment = request.form['post_text']
     image_path = build_img_path(chapter, page)
+    username = session['username']
 
-    new_comment = Comments(comment, image_path)
+    new_comment = Comments(comment, image_path, username)
     db.session.add(new_comment)
     db.session.commit()
 

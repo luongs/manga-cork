@@ -34,7 +34,7 @@
                 <div id="comment_section" class="comment_section">
                     <ul class="comments">
                     {% for i in comments %}
-                        <li>{{i.comment}}</li>
+                        <li><b>{{ i.username }}</b> says: {{i.comment}}</li>
                     {% endfor %}
                     </ul>
                 </div>
