@@ -20,10 +20,12 @@ class Comments(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     comment = db.Column(db.String(260), nullable=False)
     image_path = db.Column(db.String(160), nullable=False)
+    username = db.Column(db.String(20), nullable=False)
 
-    def __init__(self, comment, image_path):
+    def __init__(self, comment, image_path, username):
         self.comment = comment
         self.image_path = image_path
+        self.username = username
 
     def __repr__(self):
         return '<Comment {}>'.format(self.comment)
@@ -31,10 +33,12 @@ class Comments(db.Model):
 
 class User(db.Model):
     __tablename__ = "users"
+
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20), unique=True, index=True)
-    password = db.Column(db.String(180))
-    email = db.Column(db.String(30), unique=True)
+    username = db.Column(db.String(20), unique=True, index=True,
+                         nullable=False)
+    password = db.Column(db.String(180),nullable=False)
+    email = db.Column(db.String(30), unique=True,nullable=False)
     registered_on = db.Column(db.DateTime)
 
     def __init__(self, username, plaintext, email):
