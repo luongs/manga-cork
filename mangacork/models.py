@@ -56,5 +56,11 @@ class User(db.Model):
     def get_id(self):
         return unicode(self.id)
 
+    # Password authentication
+    def is_correct_password(self, plaintext):
+        if bcrypt.check_password_hash(self.password, plaintext):
+            return True
+        return False
+
     def __repr(self):
         return '<Username {}>'.format(self.username)

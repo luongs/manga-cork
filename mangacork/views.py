@@ -17,11 +17,6 @@ INDEX_PAGE = 'ndragon_ball_v001-000'
 LAST_PAGE_LIST = [i.lastpage for i in LastPage.query.all()]
 logger.debug('Last Page List {}'.format(LAST_PAGE_LIST))
 
-# Reloads user ID in session
-@login_manager.user_loader
-def load_user(id):
-    return User.query.get(int(id))
-
 
 @app.route('/')
 def index():
@@ -61,20 +56,31 @@ def login():
     login_form = LoginForm()
     chapter = request.form['chapter']
     page = request.form['page']
+    login_error = None
+    login_error_buffer = None
 
     if login_form.validate_on_submit():
-        return redirect(url_for('index'))
-    else:
+        user = User.query.filter_by(username=login_form.username.data).first()
+
+        if user is None:
+            login_error = True
+            login_error_buffer = "Username does not exist"
+        elif user.is_correct_password(plaintext=login_form.password.data):
+            login_user(user)
+        else:
+            login_error=True
+            login_error_buffer = "Incorrect password"
+
+    else:      # Missing values in login form
         login_error = True
-        login_error_buffer = ""
         for _, error_messages in login_form.errors.iteritems():
             # print out first error message only
             login_error_buffer= error_messages[0]
             break
-        # Reloads page with login modal opened
-        return redirect(url_for('display', chapter=chapter, page=page,
-                                login_error=login_error,
-                                login_error_buffer=login_error_buffer))
+
+    return redirect(url_for('display', chapter=chapter, page=page,
+                            login_error=login_error,
+                            login_error_buffer=login_error_buffer))
 
 
 @app.route('/signup', methods=['POST'])
@@ -104,7 +110,7 @@ def signup():
 
 
 @app.route('/add', methods= ['POST'])
-# @login_required
+@login_required
 def add_entry():
     chapter = request.form['chapter']
     page = request.form['page']
