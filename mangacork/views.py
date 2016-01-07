@@ -51,7 +51,7 @@ def display(chapter, page):
                             comments=comments, session=session)
 
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['GET','POST'])
 def login():
     login_form = LoginForm()
     chapter = request.form['chapter']
@@ -118,7 +118,6 @@ def signout():
 
 
 @app.route('/add', methods= ['POST'])
-@login_required
 def add_entry():
     chapter = request.form['chapter']
     page = request.form['page']

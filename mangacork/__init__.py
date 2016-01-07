@@ -10,7 +10,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 log = logging.getLogger(__name__)
 
 app = Flask(__name__)
-app.config.from_object(os.environ['APP_SETTINGS'])
+app.config.from_object(os.getenv('APP_SETTINGS'))
 bcrypt = Bcrypt(app)
 db = SQLAlchemy(app)
 
