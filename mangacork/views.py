@@ -125,8 +125,12 @@ def add_entry():
     page = request.form['page']
     comment = request.form['post_text']
     image_path = build_img_path(chapter, page)
-    username = session['username']
+    if 'username' not in session:
+        # Require login to post entry
+        return redirect(url_for('display', chapter=chapter, page=page,
+                            login_error=True))
 
+    username = session.get('username')
     new_comment = Comments(comment, image_path, username)
     db.session.add(new_comment)
     db.session.commit()
