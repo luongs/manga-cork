@@ -1,8 +1,8 @@
 import logging
 
 from flask import render_template, request, redirect, session, url_for
-from flask.ext.login import (login_user, logout_user, current_user,
-                             login_required)
+from flask.ext.login import (login_user, logout_user)
+
 
 from . import app, db, login_manager
 from .utils import (increment_page_number, build_img_path, is_last_page)
@@ -96,6 +96,8 @@ def signup():
                     email=signup_form.email.data)
         db.session.add(user)
         db.session.commit()
+        login_user(user)
+        session['username'] = user.username
 
         return redirect(url_for('display', chapter=chapter, page=page))
     else:
