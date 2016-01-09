@@ -127,8 +127,8 @@ function check_click_location_signup(e) {
 if (!localStorage.getItem('show_post_text') &&
                 !localStorage.getItem('show_comments')){
 
-        localStorage.setItem('show_post_text', 'hidden');
-        localStorage.setItem('show_comments', 'hidden');
+        localStorage.setItem('show_post_text', 'visible');
+        localStorage.setItem('show_comments', 'visible');
 }
 
 document.addEventListener("DOMContentLoaded", checkHidden, false);
