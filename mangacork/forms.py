@@ -21,6 +21,7 @@ class SignupForm(Form):
     user_dupl_msg = 'Username is already taken'
     email_format_msg = 'Invalid email format'
     email_req_msg = 'Email must be filled'
+    email_dupl_msg = 'Email is already taken'
     pwd_req_msg = 'Password must be filled'
     pwd_len_msg = 'Password cannot be longer than 25 characters'
     pwd_match_msg = 'Passwords must match'
@@ -30,7 +31,8 @@ class SignupForm(Form):
                           validators.Required(message=user_req_msg),
                           Unique(User,User.username, message=user_dupl_msg)])
     email = TextField('Email', [validators.Email(message=email_format_msg),
-                                validators.Required(message=email_req_msg)])
+                    validators.Required(message=email_req_msg),
+                    Unique(User, User.email, message=email_dupl_msg)])
     password = PasswordField('Password', [validators.Length(max=25,
                                                           message=pwd_req_msg),
                            validators.InputRequired(message=pwd_req_msg),
