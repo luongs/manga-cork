@@ -22,6 +22,7 @@ logger.debug('Last Page List {}'.format(LAST_PAGE_LIST))
 def index():
     return redirect(url_for('display',chapter=INDEX_CHAPTER, page=INDEX_PAGE))
 
+LASTPAGE_ROUTE = '/last_page'
 
 @app.route('/<chapter>/<page>', methods=['GET','POST'])
 def display(chapter, page):
@@ -38,7 +39,7 @@ def display(chapter, page):
                 image_path=image_path).all()
 
     if (is_last_page(page, LAST_PAGE_LIST)):
-        next_page = '/last_page'
+        next_page = LASTPAGE_ROUTE
     else:
         next_page = build_img_path(chapter, next_page_number)
 
@@ -60,6 +61,7 @@ def login():
     login_error_buffer = None
 
     if login_form.validate_on_submit():
+        # Show first error message instead of last for better UX
         user = User.query.filter_by(username=login_form.username.data).first()
 
         if user is None:
@@ -125,6 +127,7 @@ def add_entry():
     page = request.form['page']
     comment = request.form['post_text']
     image_path = build_img_path(chapter, page)
+
     if 'username' not in session:
         # Require login to post entry
         return redirect(url_for('display', chapter=chapter, page=page,
@@ -140,4 +143,6 @@ def add_entry():
 @app.route('/last_page')
 def display_lastpage():
     login_form = LoginForm()
-    return render_template('lastpage.html',login_form=login_form)
+    signup_form = SignupForm()
+    return render_template('lastpage.html',login_form=login_form,
+                            signup_form=signup_form)
