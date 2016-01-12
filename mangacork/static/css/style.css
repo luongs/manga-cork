@@ -10,6 +10,10 @@
     float: right;
 }
 
+.top h1 {
+    color: #34495e;
+}
+
 #logout_button {
     margin-top: 1rem;
     float: right;
