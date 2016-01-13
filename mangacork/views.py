@@ -35,13 +35,12 @@ def display(chapter, page):
 
     image_path = build_img_path(chapter, page)
     next_page_number = increment_page_number(page)
+    next_page = build_img_path(chapter, next_page_number)
     comments = Comments.query.order_by(Comments.id.desc()).filter_by(
                 image_path=image_path).all()
 
     if (is_last_page(page, LAST_PAGE_LIST)):
         next_page = LASTPAGE_ROUTE
-    else:
-        next_page = build_img_path(chapter, next_page_number)
 
     return render_template('manga.html',
                             login_form=login_form,login_error=login_error,

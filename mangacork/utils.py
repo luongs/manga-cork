@@ -17,6 +17,11 @@ class Unique(object):
             raise ValidationError(self.message)
 
 def increment_page_number(page):
+    '''
+    String -> String
+    Returns the page incremented by one
+    Expected page format: chapter-pagexxx
+    '''
     try:
         page, page_number = page.split('-')
     except ValueError:
@@ -32,11 +37,18 @@ def increment_page_number(page):
 
 
 def build_img_path(chapter, page):
+    '''
+    String, String -> String
+    produces an image path to match endpoints using chapter and page strings
+    '''
     return '/{}/{}'.format(chapter, page)
 
 
 def is_last_page(current_page, last_page_list):
+    '''
+    String, List -> Boolean
+    returns true if the current page matches a value in the last page list
+    '''
     if current_page in last_page_list:
         return True
-
     return False
