@@ -4,39 +4,30 @@ from wtforms import (TextField, StringField, BooleanField,PasswordField,
 
 from .utils import Unique
 from .models import User
+from .constants import (USER_LEN_MSG, USER_REQ_MSG, USER_DUPL_MSG,
+                        EMAIL_FORMAT_MSG, EMAIL_REQ_MSG, EMAIL_DUPL_MSG,
+                        PWD_REQ_MSG, PWD_LEN_MSG, PWD_MATCH_MSG, INCORRECT_PWD)
 
 class LoginForm(Form):
-    user_len_msg = 'Username is too long'
-    user_req_msg = 'Username must be filled'
-    pwd_req_msg = 'Password must be filled'
     username = TextField('Username',
-                         [validators.Length(max=25,message=user_len_msg),
-                            validators.Required(message=user_req_msg)])
+                         [validators.Length(max=25,message=USER_LEN_MSG),
+                            validators.Required(message=USER_REQ_MSG)])
     password = PasswordField('Password',
-                            [validators.Required(message=pwd_req_msg)])
+                            [validators.Required(message=PWD_REQ_MSG)])
 
 class SignupForm(Form):
-    user_len_msg = 'Username cannot be longer than 25 characters'
-    user_req_msg = 'Username must be filled'
-    user_dupl_msg = 'Username is already taken'
-    email_format_msg = 'Invalid email format'
-    email_req_msg = 'Email must be filled'
-    email_dupl_msg = 'Email is already taken'
-    pwd_req_msg = 'Password must be filled'
-    pwd_len_msg = 'Password cannot be longer than 25 characters'
-    pwd_match_msg = 'Passwords must match'
 
     username = TextField('Username', [validators.Length(max=25,
-                                                        message=user_len_msg),
-                          validators.Required(message=user_req_msg),
-                          Unique(User,User.username, message=user_dupl_msg)])
-    email = TextField('Email', [validators.Email(message=email_format_msg),
-                    validators.Required(message=email_req_msg),
-                    Unique(User, User.email, message=email_dupl_msg)])
+                                                        message=USER_LEN_MSG),
+                          validators.Required(message=USER_REQ_MSG),
+                          Unique(User,User.username, message=USER_DUPL_MSG)])
+    email = TextField('Email', [validators.Email(message=EMAIL_FORMAT_MSG),
+                    validators.Required(message=EMAIL_REQ_MSG),
+                    Unique(User, User.email, message=EMAIL_DUPL_MSG)])
     password = PasswordField('Password', [validators.Length(max=25,
-                                                          message=pwd_req_msg),
-                           validators.InputRequired(message=pwd_req_msg),
+                                                          message=PWD_REQ_MSG),
+                           validators.InputRequired(message=PWD_REQ_MSG),
                            validators.EqualTo('confirm',
-                                              message=pwd_match_msg)])
+                                              message=PWD_MATCH_MSG)])
     confirm = PasswordField('Repeat Password')
 

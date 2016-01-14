@@ -8,6 +8,7 @@ from . import app, db, login_manager
 from .utils import (increment_page_number, build_img_path, is_last_page)
 from .models import LastPage, Comments, User
 from .forms import SignupForm, LoginForm
+from .constants import (USER_DOESNT_EXIST, INCORRECT_PWD)
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
@@ -65,14 +66,13 @@ def login():
 
         if user is None:
             login_error = True
-            login_error_buffer = "Username does not exist"
+            login_error_buffer = USER_DOESNT_EXIST
         elif user.is_correct_password(plaintext=login_form.password.data):
             login_user(user)
             session['username'] = user.username
         else:
             login_error=True
-            login_error_buffer = "Incorrect password"
-
+            login_error_buffer = INCORRECT_PWD
     else:      # Missing values in login form
         login_error = True
         for _, error_messages in login_form.errors.iteritems():
