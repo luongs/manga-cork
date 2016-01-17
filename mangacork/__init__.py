@@ -10,10 +10,8 @@ from flask.ext.sqlalchemy import SQLAlchemy
 log = logging.getLogger(__name__)
 
 app = Flask(__name__)
-# TODO: It doesn't look like getenv is returning anything on prod
-# Find an alternative or fix path to retrieve environment var from 
-# virtualenvwrapper 
-app.config.from_object(os.getenv('APP_SETTINGS'))
+app.config.from_object(os.getenv("APP_OBJECT_SETTINGS"))
+app.config.from_envvar("APP_SETTINGS")
 bcrypt = Bcrypt(app)
 db = SQLAlchemy(app)
 

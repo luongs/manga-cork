@@ -6,6 +6,6 @@ mangacork/static/images/*.txt
 build
 dist
 *.egg-info
-config.py
+*.cfg
 note_to_self.txt
 *.DS_STORE
