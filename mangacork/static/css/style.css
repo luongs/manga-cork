@@ -63,3 +63,13 @@
     padding-top: 2rem;
 }
 
+/* Media queries style
+----------------------------------------*/
+
+/* mobile only style */
+@media(max-width: 500px){
+    .manga textarea {
+        margin-top: 2.0rem;
+    }
+
+}
