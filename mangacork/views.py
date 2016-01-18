@@ -133,9 +133,11 @@ def add_entry():
                             login_error=True))
 
     username = session.get('username')
-    new_comment = Comments(comment, image_path, username)
-    db.session.add(new_comment)
-    db.session.commit()
+    # only post comment if its not empty
+    if comment:
+        new_comment = Comments(comment, image_path, username)
+        db.session.add(new_comment)
+        db.session.commit()
 
     return redirect(url_for('display', chapter=chapter, page=page ))
 
