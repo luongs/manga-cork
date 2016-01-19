@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block body %}
+
+{% if login_error %}
+<body onload="show_login_form()">
+{% elif signup_error %}
+{% endif %}
+<section class="description">
+    <div class="container">
+        <div class="row">
+            <div class="twelve columns">
+                <p> Learn more about your favorite mangas on  Mangacork </p>
+                <p> Read the author's notes and thoughts on plot points and characters </p>
+                <br />
+                <a href="{{ next_page }} " class="button"> Start </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% if login_error %}
+</body>
+{% elif signup_error %}
+</body>
+{% endif %}
+{% endblock %}

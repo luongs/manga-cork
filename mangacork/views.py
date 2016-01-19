@@ -21,7 +21,23 @@ logger.debug('Last Page List {}'.format(LAST_PAGE_LIST))
 
 @app.route('/')
 def index():
-    return redirect(url_for('display',chapter=INDEX_CHAPTER, page=INDEX_PAGE))
+    login_form = LoginForm()
+    signup_form = SignupForm()
+    login_error = request.args.get('login_error')
+    signup_error = request.args.get('signup_error')
+    login_error_buffer = request.args.get('login_error_buffer')
+    signup_error_buffer = request.args.get('signup_error_buffer')
+
+    chapter = INDEX_CHAPTER
+    page = INDEX_PAGE
+    next_page = build_img_path(chapter, page)
+    return render_template('index.html',
+                            login_form=login_form,login_error=login_error,
+                            login_error_buffer=login_error_buffer,
+                            signup_form=signup_form, signup_error=signup_error,
+                            signup_error_buffer=signup_error_buffer,
+                            next_page=next_page,page=page,chapter=chapter,
+                            session=session)
 
 LASTPAGE_ROUTE = '/last_page'
 
